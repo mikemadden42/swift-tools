@@ -1,6 +1,7 @@
 # swift-tools
 
 xcode-select -p
+
 /Applications/Xcode.app/Contents/Developer
 
 sudo xcode-select --switch /Library/Developer/CommandLineTools
