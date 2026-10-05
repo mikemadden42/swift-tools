@@ -9,10 +9,13 @@ SWIFT_FLAGS := -O -whole-module-optimization
 X86_64_TARGET := x86_64-apple-macosx10.15
 ARM64_TARGET := arm64-apple-macosx11.0
 
+UNAME_S := $(shell uname -s)
+
 .PHONY: all clean
 
 all: $(EXECUTABLES)
 
+ifeq ($(UNAME_S),Darwin)
 %: %.swift
 	$(SWIFTC) $(SWIFT_FLAGS) -target $(X86_64_TARGET) -o $@_x86_64 $<
 	$(SWIFTC) $(SWIFT_FLAGS) -target $(ARM64_TARGET) -o $@_arm64 $<
@@ -20,6 +23,12 @@ all: $(EXECUTABLES)
 	$(STRIP) -o $@ $@_unstripped
 	rm $@_x86_64 $@_arm64 $@_unstripped
 	@echo "Built and stripped universal binary: $@"
+else
+%: %.swift
+	$(SWIFTC) $(SWIFT_FLAGS) -o $@ $<
+	$(STRIP) $@
+	@echo "Built and stripped binary: $@"
+endif
 
 clean:
 	rm -f $(EXECUTABLES)
