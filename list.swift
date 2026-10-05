@@ -24,7 +24,7 @@ do {
 
     // Sort extensions and files within each extension
     for ext in filesByExtension.keys.sorted() {
-        print("\n\(ext):")
+        print("\n\(ext.isEmpty ? "(none)" : ext):")
         for file in filesByExtension[ext]!.sorted() {
             print("- \(file)")
         }
