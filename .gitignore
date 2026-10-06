@@ -65,3 +65,6 @@ fastlane/test_output
 /cores
 /list
 /password
+
+# CMake build directory
+/build/

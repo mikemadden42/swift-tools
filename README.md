@@ -19,6 +19,22 @@ make clean  # remove built tools
 On macOS, each tool is built as a stripped universal binary (x86_64 + arm64).
 On Linux, each tool is built as a stripped native binary.
 
+### CMake
+
+The tools can also be built with CMake (3.15 or later), which requires the
+Ninja or Xcode generator:
+
+```sh
+cmake -B build -GNinja
+ninja -C build
+```
+
+The build type defaults to `Release`, which strips the binaries; pass
+`-DCMAKE_BUILD_TYPE=Debug` for an unstripped debug build. CMake cannot build
+universal Swift binaries, so on macOS it builds for the host architecture
+only, targeting the same minimum macOS versions as `make` (11.0 for arm64,
+10.15 for x86_64).
+
 ## macOS toolchain
 
 Show the active developer directory:
